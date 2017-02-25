@@ -41,4 +41,26 @@ feature 'posts' do
       expect(current_path).to eq "/posts/#{post.id}"
     end
   end
+
+  context 'editing posts' do
+    scenario 'lets a user edit their posts' do
+      post = Post.create(caption: "This is the original text")
+      visit '/posts'
+      click_link "Edit"
+      fill_in 'Caption', with: "This is the revised text"
+      click_button 'Update Post'
+      expect(page).to have_content("This is the revised text")
+      expect(current_path).to eq '/posts'
+    end
+  end
+
+  context 'deleting posts' do
+    scenario 'lets a user delete their posts' do
+      post = Post.create(caption: "This is a test")
+      visit '/posts'
+      click_link "Delete"
+      expect(page).to have_content "Post successfully deleted"
+      expect(page).not_to have_content "This is a test"
+    end
+  end
 end
