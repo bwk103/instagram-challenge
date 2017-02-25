@@ -1,0 +1,8 @@
+%h1 instaMAgram
+- if @posts.any?
+  - @posts.each do |post|
+    = link_to post.caption, post_path(post)
+- else
+  No posts yet
+
+%a(href=new_post_path) Post something
