@@ -31,6 +31,14 @@ feature 'posts' do
       expect(page).to have_content "This is a test"
       expect(current_path).to eq '/posts'
     end
+
+    scenario "it does not permit the user to create a post without a caption" do
+      visit '/posts'
+      click_link 'Post something'
+      click_button 'Create Post'
+      expect(page).to have_content "Caption is too short"
+      expect(current_path).to eq '/posts'
+    end
   end
 
   context 'viewing posts' do
